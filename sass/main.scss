@@ -138,36 +138,29 @@ $div_screen: 1;
 
 }
 
-@media (min-width: 280px) {
-  @include board($div_280);
+@mixin cells($black, $white) {
   .row:nth-child(odd) > div:nth-child(odd),
   .row:nth-child(even) > div:nth-child(even) {
-    background-color: white;
+    background-color: $white;
   }
 
   .row:nth-child(odd) > div:nth-child(even),
   .row:nth-child(even) > div:nth-child(odd) {
-    background-color: black;
+    background-color: $black;
   }
   .board {
-    background-color: black;
+    background-color: $black;
   }
+}
+
+@media (min-width: 280px) {
+  @include board($div_280);
+  @include cells(black, white);
 }
 
 @media (min-width: 578px) {
   @include board(1.5);
-  .row:nth-child(odd) > div:nth-child(odd),
-  .row:nth-child(even) > div:nth-child(even) {
-    background-color: wheat;
-  }
-
-  .row:nth-child(odd) > div:nth-child(even),
-  .row:nth-child(even) > div:nth-child(odd) {
-    background-color: gray;
-  }
-  .board {
-    background-color: gray;
-  }
+  @include cells(gray, wheat);
 }
 
 @media (min-width: 900px) {
