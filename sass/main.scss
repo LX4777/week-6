@@ -16,131 +16,172 @@ $figures: (
   "rook": "rook.svg",
 );
 
-@function get-figure-url($figure, $color) {
-  @return url("/svg/" + $color + "-" + $figure);
-}
-
-@mixin figure-style {
-  background-size: cover;
-  height: $cellSize;
-  width: $cellSize;
-}
-
-@each $figure, $picture in $figures {
-  .w-#{$figure} {
-    background: get-figure-url($picture, $white);
-    @include figure-style;
-  }
-  .b-#{$figure} {
-    background: get-figure-url($picture, $black);
-    @include figure-style;
-    transform: rotate(180deg);
-  }
-}
+$div_280: 2;
+$div_screen: 1;
 
 * {
   margin: 0;
   padding: 0;
 }
 
-body {
-  color: white;
-  -webkit-text-stroke: 0.2px black;
-  font-weight: bold;
-  text-transform: uppercase;
-  height: 1000px;
-  width: 2000px;
+@function get-figure-url($figure, $color) {
+  @return url("/svg/" + $color + "-" + $figure);
 }
 
-.board {
-  height: $cellSize * 9;
-  width: $cellSize * 9;
-  border: solid black;
-  background-image: $darkTexture;
+@mixin figure-style ($div) {
+  background-size: cover;
+  height: $cellSize / $div;
+  width: $cellSize / $div;
 }
 
-.area {
-  width: $cellSize * 8;
-  height: $cellSize * 8;
-  float: left;
-  border: solid black;
-}
+@mixin board($div) {
+  @each $figure, $picture in $figures {
+    .w-#{$figure} {
+      background: get-figure-url($picture, $white);
+      @include figure-style($div);
+    }
+    .b-#{$figure} {
+      background: get-figure-url($picture, $black);
+      @include figure-style($div);
+      transform: rotate(180deg);
+    }
+  }
 
-.top {
-  height: 23px;
-  top: 0;
-}
+  body {
+    color: white;
+    -webkit-text-stroke: 0.2px / $div black;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
 
-.bottom {
-  width: 430px;
-  height: 22px;
-  bottom: 0;
-  clear: both;
-}
+  .board {
+    height: $cellSize * 9 / $div;
+    width: $cellSize * 9 / $div;
+    border: solid black;
+  }
 
-.top,
-.bottom {
-  margin-left: 20px;
-  position: sticky;
-  z-index: 100;
-
-  & > div {
-    width: 50px;
-    height: 23px;
-    font-size: 1rem;
-    text-align: center;
+  .area {
+    width: $cellSize * 8 / $div;
+    height: $cellSize * 8 / $div;
     float: left;
+    border: solid black;
   }
-}
 
-.top > div,
-.right > div {
-  transform: rotate(180deg);
-}
-
-.left {
-  left: 0px;
-  padding-top: 20px;
-}
-
-.right {
-  right: 0px;
-  margin-top: -13px;
-}
-
-.left,
-.right {
-  padding-bottom: 5px;
-  font-size: 1rem;
-  height: 380px;
-  width: 22px;
-  float: left;
-  position: sticky;
-  z-index: 100;
-
-  & > div {
-    height: 50px;
-    text-align: center;
+  .top {
+    height: 23px / $div;
+    top: 0;
   }
-}
 
-.row {
-  height: $cellSize;
-  width: $cellSize * 8;
+  .bottom {
+    width: 430px / $div;
+    height: 22px / $div;
+    bottom: 0;
+    clear: both;
+  }
 
-  & > div {
-    width: $cellSize;
-    height: $cellSize;
+  .top,
+  .bottom {
+    margin-left: 20px / $div;
+    position: sticky;
+    z-index: 100;
+
+    & > div {
+      width: 50px / $div;
+      height: 23px / $div;
+      font-size: 1rem / $div;
+      text-align: center;
+      float: left;
+    }
+  }
+
+  .top > div,
+  .right > div {
+    transform: rotate(180deg);
+  }
+
+  .left {
+    left: 0px;
+    padding-top: 20px / $div;
+  }
+
+  .right {
+    right: 0px;
+    margin-top: -13px / $div;
+  }
+
+  .left,
+  .right {
+    padding-bottom: 5px / $div;
+    font-size: 1rem / $div;
+    height: 380px / $div;
+    width: 18px / $div;
     float: left;
+    position: sticky;
+    z-index: 100;
+
+    & > div {
+      height: 50px / $div;
+      text-align: center;
+    }
+  }
+
+  .row {
+    height: $cellSize / $div;
+    width: $cellSize * 8 / $div;
+
+    & > div {
+      width: $cellSize / $div;
+      height: $cellSize / $div;
+      float: left;
+    }
+  }
+
+}
+
+@media (min-width: 280px) {
+  @include board($div_280);
+  .row:nth-child(odd) > div:nth-child(odd),
+  .row:nth-child(even) > div:nth-child(even) {
+    background-color: white;
+  }
+
+  .row:nth-child(odd) > div:nth-child(even),
+  .row:nth-child(even) > div:nth-child(odd) {
+    background-color: black;
+  }
+  .board {
+    background-color: black;
   }
 }
 
-.row:nth-child(odd) > div:nth-child(odd),
-.row:nth-child(even) > div:nth-child(even) {
-  background-image: $lightWood;
+@media (min-width: 578px) {
+  @include board(1.5);
+  .row:nth-child(odd) > div:nth-child(odd),
+  .row:nth-child(even) > div:nth-child(even) {
+    background-color: wheat;
+  }
+
+  .row:nth-child(odd) > div:nth-child(even),
+  .row:nth-child(even) > div:nth-child(odd) {
+    background-color: gray;
+  }
+  .board {
+    background-color: gray;
+  }
 }
 
-.row:nth-child(odd) > div:nth-child(even),
-.row:nth-child(even) > div:nth-child(odd) {
-  background-image: $darkWood;
+@media (min-width: 900px) {
+  @include board($div_screen);
+  .row:nth-child(odd) > div:nth-child(odd),
+  .row:nth-child(even) > div:nth-child(even) {
+    background-image: $lightWood;
+  }
+
+  .row:nth-child(odd) > div:nth-child(even),
+  .row:nth-child(even) > div:nth-child(odd) {
+    background-image: $darkWood;
+  }
+  .board {
+    background-image: $darkTexture;
+  }
 }
