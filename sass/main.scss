@@ -170,7 +170,8 @@ body {
   border: solid black;
 }
 
-.area {
+.area,
+.row > div {
   float: left;
 }
 
@@ -211,8 +212,4 @@ body {
   & > div {
     text-align: center;
   }
-}
-
-.row > div {
-    float: left;
 }

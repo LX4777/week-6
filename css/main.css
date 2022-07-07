@@ -520,7 +520,8 @@ body {
   border: solid black;
 }
 
-.area {
+.area,
+.row > div {
   float: left;
 }
 
@@ -563,8 +564,4 @@ body {
 .left > div,
 .right > div {
   text-align: center;
-}
-
-.row > div {
-  float: left;
 }/*# sourceMappingURL=main.css.map */
