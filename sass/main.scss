@@ -121,9 +121,7 @@ $div_screen: 1;
   }
 
   .row:nth-child(odd) > div:nth-child(even),
-  .row:nth-child(even) > div:nth-child(odd) {
-    background-color: $black;
-  }
+  .row:nth-child(even) > div:nth-child(odd),
   .board {
     background-color: $black;
   }
@@ -150,6 +148,7 @@ $div_screen: 1;
   .row:nth-child(even) > div:nth-child(odd) {
     background-image: $darkWood;
   }
+
   .board {
     background-image: $darkTexture;
   }
@@ -166,13 +165,13 @@ body {
   text-transform: uppercase;
 }
 
-.board {
+.board,
+.area {
   border: solid black;
 }
 
 .area {
   float: left;
-  border: solid black;
 }
 
 .top {
