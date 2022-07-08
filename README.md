@@ -12,12 +12,18 @@
 Результ:
 
 `@media (min-width: 280px)`
+
+
 ![](assets/20220708_095736_image.png)
 
 `@media (min-width: 578px)`
+
+
 ![](assets/20220708_100059_image.png)
 
 `@media (min-width: 900px)`
+
+
 ![](assets/20220708_100202_image.png)
 
 P.S. Для выделения черных фигур на черном фоне подправил svg - изменил свойства stroke на белый цвет.
